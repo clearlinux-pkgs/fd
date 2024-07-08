@@ -7,7 +7,7 @@
 #
 Name     : fd
 Version  : 10.1.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/sharkdp/fd/archive/refs/tags/v10.1.0.tar.gz
 Source0  : https://github.com/sharkdp/fd/archive/refs/tags/v10.1.0.tar.gz
 Source1  : http://localhost/cgit/vendor/fd/snapshot/fd-2024-07-08-21-50-38.tar.xz
@@ -44,13 +44,9 @@ mkdir -p ./vendor
 cp -r %{_builddir}/fd-2024-07-08-21-50-38/* %{_builddir}/fd-10.1.0/./vendor
 mkdir -p .cargo
 echo '[source.crates-io]
-
 replace-with = "vendored-sources"
 
-
-
 [source.vendored-sources]
-
 directory = "vendor"
 ' >> .cargo/config.toml
 
@@ -132,6 +128,7 @@ cp %{_builddir}/fd-2024-07-08-21-50-38/errno/LICENSE-APACHE %{buildroot}/usr/sha
 cp %{_builddir}/fd-2024-07-08-21-50-38/errno/LICENSE-MIT %{buildroot}/usr/share/package-licenses/fd/7a842f34e127456338641b14c7a00ec246d89fb6 || :
 cp %{_builddir}/fd-2024-07-08-21-50-38/etcetera/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/fd/6e5c4711bcae04967d7f5b5e01cf56ae03bebe7a || :
 cp %{_builddir}/fd-2024-07-08-21-50-38/etcetera/LICENSE-MIT %{buildroot}/usr/share/package-licenses/fd/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
+cp %{_builddir}/fd-2024-07-08-21-50-38/faccess/LICENSE.txt %{buildroot}/usr/share/package-licenses/fd/78e0669746c99ca7a8d9cf322ac2e06daf16848c || :
 cp %{_builddir}/fd-2024-07-08-21-50-38/fastrand/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/fd/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/fd-2024-07-08-21-50-38/fastrand/LICENSE-MIT %{buildroot}/usr/share/package-licenses/fd/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/fd-2024-07-08-21-50-38/filetime/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/fd/5798832c31663cedc1618d18544d445da0295229 || :
@@ -316,6 +313,7 @@ cp %{_builddir}/fd-2024-07-08-21-50-38/windows_x86_64_msvc/license-mit %{buildro
 /usr/share/package-licenses/fd/6c2945f449081ab19640fb7c70a081a1a4559399
 /usr/share/package-licenses/fd/6e5c4711bcae04967d7f5b5e01cf56ae03bebe7a
 /usr/share/package-licenses/fd/70693ba8757c4a17af68e39ab32e4e0d4a389416
+/usr/share/package-licenses/fd/78e0669746c99ca7a8d9cf322ac2e06daf16848c
 /usr/share/package-licenses/fd/7a842f34e127456338641b14c7a00ec246d89fb6
 /usr/share/package-licenses/fd/7df059597099bb7dcf25d2a9aedfaf4465f72d8d
 /usr/share/package-licenses/fd/8bec88444202e13c35f17f3057132e6a21c287c1
