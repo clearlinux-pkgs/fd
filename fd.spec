@@ -7,18 +7,22 @@
 #
 Name     : fd
 Version  : 10.1.0
-Release  : 3
+Release  : 4
 URL      : https://github.com/sharkdp/fd/archive/refs/tags/v10.1.0.tar.gz
 Source0  : https://github.com/sharkdp/fd/archive/refs/tags/v10.1.0.tar.gz
 Source1  : http://localhost/cgit/vendor/fd/snapshot/fd-2024-07-08-21-50-38.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause ICU MIT Unicode-DFS-2016 Unlicense
+Requires: fd-bin = %{version}-%{release}
+Requires: fd-data = %{version}-%{release}
 Requires: fd-license = %{version}-%{release}
+Requires: fd-man = %{version}-%{release}
 BuildRequires : rustc
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-fix-prefix.patch
 
 %description
 # fd
@@ -26,6 +30,24 @@ BuildRequires : rustc
 [![Version info](https://img.shields.io/crates/v/fd-find.svg)](https://crates.io/crates/fd-find)
 [[中文](https://github.com/cha0ran/fd-zh)]
 [[한국어](https://github.com/spearkkk/fd-kor)]
+
+%package bin
+Summary: bin components for the fd package.
+Group: Binaries
+Requires: fd-data = %{version}-%{release}
+Requires: fd-license = %{version}-%{release}
+
+%description bin
+bin components for the fd package.
+
+
+%package data
+Summary: data components for the fd package.
+Group: Data
+
+%description data
+data components for the fd package.
+
 
 %package license
 Summary: license components for the fd package.
@@ -35,6 +57,14 @@ Group: Default
 license components for the fd package.
 
 
+%package man
+Summary: man components for the fd package.
+Group: Default
+
+%description man
+man components for the fd package.
+
+
 %prep
 %setup -q -n fd-10.1.0
 cd %{_builddir}
@@ -42,6 +72,7 @@ tar xf %{_sourcedir}/fd-2024-07-08-21-50-38.tar.xz
 cd %{_builddir}/fd-10.1.0
 mkdir -p ./vendor
 cp -r %{_builddir}/fd-2024-07-08-21-50-38/* %{_builddir}/fd-10.1.0/./vendor
+%patch -P 1 -p1
 mkdir -p .cargo
 echo '[source.crates-io]
 replace-with = "vendored-sources"
@@ -55,7 +86,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1721663875
+export SOURCE_DATE_EPOCH=1721665753
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -89,7 +120,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1721663875
+export SOURCE_DATE_EPOCH=1721665753
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/fd
 cp %{_builddir}/fd-%{version}/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/fd/145c01c826ab5757f9cf06ec5cc0317e28707d97 || :
@@ -320,6 +351,16 @@ GOAMD64=v2
 %files
 %defattr(-,root,root,-)
 
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/fd
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/bash-completion/completions/fd
+/usr/share/fish/vendor_completions.d/fd.fish
+/usr/share/zsh/site-functions/_fd
+
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/fd/086d6c321d4f9363125626e2f538dbb8c6e17d49
@@ -384,3 +425,7 @@ GOAMD64=v2
 /usr/share/package-licenses/fd/ff007ce11f3ff7964f1a5b04202c4e95b5c82c85
 /usr/share/package-licenses/fd/ff432d95fdfee3587e45abd61685c2209d245901
 /usr/share/package-licenses/fd/ff44b187892fcf1cd15a3ca61b498041b28afecc
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man1/fd.1

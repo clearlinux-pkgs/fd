@@ -1,0 +1,25 @@
+From 19d711a327eb81f3c4dd89c78669a75c6fff29e7 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Mon, 22 Jul 2024 09:21:42 -0700
+Subject: [PATCH] fix-prefix
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index b351271..9f8eb04 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ PROFILE=release
+ EXE=target/$(PROFILE)/fd
+-prefix=/usr/local
++prefix=/usr
+ bindir=$(prefix)/bin
+ datadir=$(prefix)/share
+ exe_name=fd
+-- 
+2.45.1
+
